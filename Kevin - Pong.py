@@ -84,6 +84,7 @@ while gameContinue == True:
         livesText = font.render("Lives: " + str(lives), True, WHITE) #setting up what you want to print/display
         livesTextRect = livesText.get_rect() #making a rectangle for the text
         livesTextRect.center = (W//2, 10) #set the text location
+        screen.blit(livesText, livesTextRect)
         if lives == 0:
             gamePaused = True
             while gamePaused == True:
@@ -95,17 +96,29 @@ while gameContinue == True:
                 
                 for event in pygame.event.get():
                     if pygame.key.get_pressed()[pygame.K_q]:
-                        pass
+                        gameContinue = False
+                        gamePaused = False
                     if pygame.key.get_pressed()[pygame.K_c]:
                         lives = 3
                         score = 0
-                        ballx = 0
-                        bally = 0
+                        ballx = ballsize
+                        bally = ballsize
+                        ballspeedx = 5
+                        ballspeedy = 5
 
+                        livesText = font.render("Lives: " + str(lives), True, WHITE)
+                        livesTextRect = livesText.get_rect() 
+                        scoreText =  font.render("Score: " + str(score), True, WHITE)
+                        scoreTextRect = scoreText.get_rect()
 
-                
-                
+                        livesTextRect.center = (W//2, 10)
+                        scoreTextRect.center = (W//2,30)
 
+                        screen.blit(livesText, livesTextRect)
+                        screen.blit(scoreText, scoreTextRect)
+                        
+                        gamePaused = False
+                        
     #ball-paddle collision
     if bally > py - ballsize and ballx > px and ballx < px + pw:
         bally = py - ballsize
